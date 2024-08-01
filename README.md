@@ -33,7 +33,7 @@ conda activate SWOT_env
 2. Clone this repository and cd into it as below.
 
 ```bash
-git clone https://github.com/LanyingWang25/SWOT.git
+git clone https://github.com/GaoLabXDU/SWOT.git
 ```
 
 3. Install requirements directly
