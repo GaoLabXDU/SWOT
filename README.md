@@ -15,9 +15,9 @@ Reconstructing single-cell spatial maps from spatial transcriptomics data with S
 ## Overview
 This project is a python implementation of SWOT, which is introducted in the paper "Reconstructing single-cell spatial maps from spatial transcriptomics data with SWOT"
 
-Although cell-type deconvolution methods revealed spatial patterns, they are predominantly limited to estimating cell-type compositions without considering cell-to-spot mapping for reconstructing single-cell spatial maps.
+Resolving the spatial organization of cell type in situ remains a major challenge in spatial transcriptomics. Most cell-type deconvolution methods are limited to estimating cell-type compositions without considering cell-to-spot mapping for reconstructing single-cell spatial maps.
 SWOT is a spatially weighted optimal transport method that integrates single-cell RNA sequencing data with spatial transcriptomics data for cell-type deconvolution and further single-cell spatial maps reconstruction. 
-It contains two principal components: an optimal transport module for computing transport plan and a cell mapping module for estimating cell-type compositions, cell numbers and cell coordinates per spot. 
+It contains two principal components: an optimal transport module for learning a cell-to-spot mapping and a cell mapping module for estimating cell-type proportions, cell numbers, and cell coordinates per spo
 It applies a spatially weighted strategy, which incorporating gene expression and spatial location, to an optimal transport framework to learn a mapping from cells to spots, thereby achieving cell-type deconvolution and further single-cell spatial maps reconstruction.
 
 
@@ -36,7 +36,7 @@ conda activate SWOT_env
 2. Clone this repository and cd into it as below.
 
 ```bash
-git clone https://github.com//GaoLabXDU/SWOT.git
+git clone https://github.com/GaoLabXDU/SWOT.git
 ```
 
 3. Install requirements directly
