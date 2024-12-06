@@ -7,8 +7,6 @@ Reconstructing single-cell spatial maps from spatial transcriptomics data with S
 - [Overview](#overview)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Compared methods](#compared-methods)
-- [Datasets availability](#datasets-availability)
 
 
 
@@ -54,7 +52,7 @@ pip install -r requirements.txt
 The SWOT algorithm used in spot-resolution ST data for cell-type deconvolution and further single-cell spatial maps reconstruction. SWOT inputs a gene expression matrix with cell type labels of scRNA-seq data and a gene expression matrix with spatial coordinates of ST data. 
 
 
-### Run the demo
+### Run Example
 An example for pancreatic ductal adenocarcinoma (PDAC) dataset can be found under the directory "Example/", and the example data are under the directory "Data/".
 
 ```bash
@@ -77,26 +75,3 @@ When using your own data to run SWOT, you should provide as:
 * The cell type labels matrix of scRNA-seq data, rows represent cells and columns represent cell type information having 'celltype' for labels, and saved as .csv format.
 * The spatial coordinates matrix of ST data, rows represent spots and columns represent coordinates information having 'X' and 'Y', and saved as .csv format. 
 
-
-
-## Compared methods
-* SPOTlight (v1.6.7, https://github.com/MarcElosua/SPOTlight) is executed in an R environment (v4.3.0), we set “mean_AUC=0.5” and selected the top 3,000 highly variable genes. 
-* RCTD (v2.2.1, https://github.com/dmcable/spacexr) is executed in an R environment (v4.3.0).
-* CARD (v1.1, https://github.com/YingMa0107/CARD) is executed in an R environment (v4.3.0).  
-* STRIDE (v0.0.2a, https://github.com/wanglabtongji/STRIDE) is run in a Python environment (v3.8.18).
-* Stereoscope (v0.2.0, https://github.com/almaan/stereoscope) is conducted in a Python environment (v3.8.18), the parameters "sc epochs" and "st epochs" are set to 50,000. 
-* Uniport (v1.2.2, https://github.com/caokai1073/uniPort) is first implemented in a Python environment (v3.9.18) and then executed in an R environment (v4.3.0) . We adjusted the maximum iteration number to 1,000 during training phase. 
-* SONAR (https://github.com/lzygenomics/SONAR) is executed in both R (v4.3.0) and MATLAB (R2021b) environments.
-* CellTrek (v1.1.0, v0.0.94, https://github.com/navinlabcode/CellTrek) is executed in an R environment (v4.3.0).
-* CytoSPACE (https://cytospace.stanford.edu/) is executed in a web interface with default parameter settings. For Simulated_Cortex, Simulated_MB, MOB, and PDAC, we set the parameters spot_n and top_spot as 5, 10, 5, and 10, respectively.
-* CytoCommunity (v1.1.0, https://github.com/huBioinfo/CytoCommunity) relied on Python (v3.10.6) and R (v4.3.0) environments. 
-* STAGATE (v1.0.1, https://github.com/QIFEIDKN/STAGATE) is conducted within a Python environment (v3.7.16). 
-
-
-
-## Datasets availability
-* SeqFISH+ data of mouse somatosensory cortex comes from http://linnarssonlab.org/cortex. 
-* Stereoseq data is available at http://116.6.21.110:8090/share/dd965cba-7c1f-40b2-a275-0150890e005f and the scRNA-seq data comes from http://mousebrain.org/adolescent/downloads.html. 
-* Mouse olfactory bulb dataset is available at  https://www.spatialresearch.org/resources-published-datasets/doi-10-1126science-aaf2403/ and GSE121891 for ST and scRNA-seq data. 
-* Mouse cerebellum dataset is publicly available at https://singlecell.broadinstitute.org/single_cell/study/SCP948/robust-decomposition-of-cell-type-mixtures-in-spatial-transcriptomics#study-download and https://singlecell.broadinstitute.org/single_cell/study/SCP948/robust-decomposition-of-cell-type-mixtures-in-spatial-transcriptomics for ST and scRNA-seq data. 
-* Pancreatic ductal adenocarcinoma dataset is downloaded from GSM3036911 and GSE111672 for ST and scRNA-seq data.
