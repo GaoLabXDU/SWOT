@@ -1,6 +1,6 @@
 ---
 title: "Visualization for cell-type deconvolution and single-cell spatial maps of SWOT"
-date: "November 25th, 2024"
+date: "December 5th, 2024"
 output:
   rmdformats::html_clean:
     highlight: kate
@@ -36,10 +36,10 @@ The results obtained from running SWOT in Python are located in folder "SWOT_fil
 
 ```{r}
 file_path <- getwd()
-data_path <- paste0(file_path, '/Data/PDAC/')
+data_path <- paste0(file_path, '/Data/')
 swot_path <- paste0(file_path, '/SWOT_files/')
 
-ST_xy <- read.csv(paste0(data_path, 'st_xy.csv'), header = T, row.names = 1, check.names = F)
+ST_xy <- read.csv(paste0(data_path, 'PDAC_st_xy.csv'), header = T, row.names = 1, check.names = F)
 
 SWOT_CTprop <- read.csv(paste0(swot_path, '/CellMapping/Celltype_proportions.csv'), header = T, row.names = 1, check.names = F)
 SWOT_Cellmapping <- read.csv(paste0(swot_path, '/CellMapping/Cell_maps_xy.csv'), header = T, row.names = 1, check.names = F)
@@ -99,12 +99,12 @@ ggplot(SWOT_Cellmapping) +
 ### Gene expression levels of single-cell spatial maps
 ```{r fig.width=10, fig.height=8, message=FALSE}
 # Find too 100 markers for each cell type
-SC_exp <- read.csv(paste0(data_path, 'sc_exp.csv'), header = T, row.names = 1, check.names = F)
-SC_meta <- read.csv(paste0(data_path, 'sc_meta.csv'), header = T, row.names = 1, check.names = F)
+SC_exp <- read.csv(paste0(data_path, 'PDAC_sc_exp.csv'), header = T, row.names = 1, check.names = F)
+SC_meta <- read.csv(paste0(data_path, 'PDAC_sc_meta.csv'), header = T, row.names = 1, check.names = F)
 # We used "FindMarkerGenes" funtion in "Visualization_functions.R" to idenfity markers by "Seurat::FindAllMarkers" function.
-# markers_top100 <- FindMarkerGenes(SC_exp, SC_meta, n_tops=100, save = FALSE)
+markers_top100 <- FindMarkerGenes(SC_exp, SC_meta, n_tops=100, save = FALSE)
 # write.csv(markers_top100, paste0(data_path, 'markers_top100.csv'))
-markers_top100 <- read.csv(paste0(data_path, 'markers_top100.csv'), header = T, row.names = 1, check.names = F) 
+# markers_top100 <- read.csv(paste0(data_path, 'markers_top100.csv'), header = T, row.names = 1, check.names = F) 
 
 # Plot expression levels of top 100 cell-type-specific genes on the reconstructed single-cell spatial map of PDAC dataset.
 SWOT_Cellmapping_xy <- SWOT_Cellmapping[,c('cs_x', 'cs_y')]
