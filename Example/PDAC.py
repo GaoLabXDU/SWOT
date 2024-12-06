@@ -38,12 +38,12 @@ if __name__ == '__main__':
 
     #### 2. An optimal transport module for computing transport plan
     TransportPlan = swotclass.compute_transportplan(knn_scale_method='MinMaxScaler',
-                                                    save_dis=True,
+                                                    save_dis=False,
                                                     knn_metric_d12='correlation',
                                                     cluster='celltype', cluster_method='Louvain',
                                                     resolu_cluster=0.2, plot_umap=False, n_neighbors=20,
                                                     verbose=False, ps_bandwidth=0.1, sp_bandwidth=0.1,
-                                                    save_sw=True,
+                                                    save_sw=False,
                                                     cost2=None,
                                                     alpha=0.1, lamda=100.0, ent_reg=0.05,
                                                     initdis_method='minus',
