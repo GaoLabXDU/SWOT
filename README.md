@@ -71,7 +71,7 @@ The results of SWOT are saved in "SWOT_files/".
 
 ### Run your own data
 When using your own data to run SWOT, you should provide as:
-* The gene expression matrix of scRNA-seq and ST data, rows represent genes and columns represent cells, and saved as .csv format.
+* The gene expression matrix of scRNA-seq and ST data, rows represent genes and columns represent cells or spots, and saved as .csv format.
 * The cell type labels matrix of scRNA-seq data, rows represent cells and columns represent cell type information having 'celltype' for labels, and saved as .csv format.
 * The spatial coordinates matrix of ST data, rows represent spots and columns represent coordinates information having 'X' and 'Y', and saved as .csv format. 
 
