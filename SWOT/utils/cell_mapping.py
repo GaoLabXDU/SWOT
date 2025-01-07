@@ -95,7 +95,7 @@ def ct_mapping(t_mapping,
                cluster='celltype', save=True,
                minto0=0.05, mincut=0.1):
     """
-    Estimation of cell-type compositions for cell-type deconvolution.
+    Estimation of cell-type compositions.
     """
     if not isinstance(t_mapping, pd.DataFrame):
         print('Please enter T_mapping data of pandas DataFrame type represents a transport plan.')
@@ -154,14 +154,14 @@ def ct_mapping(t_mapping,
     if not ct_mapping.columns.equals(ct_order):
         ct_mapping = ct_mapping[ct_order]
 
-    file_name = 'Celltype_proportions.csv'
+    file_name = 'Celltype_composition.csv'
     if save:
         files = os.listdir(file_path)
         if 'CellMapping' not in files:
             os.mkdir(os.path.join(file_path, 'CellMapping'))
 
         ct_mapping.to_csv(file_path + 'CellMapping/' + file_name, sep=',', index=True, header=True)
-        print('The cell-type deconvolution results are saved in ' + file_path + 'CellMapping/' + file_name + '.')
+        print('The cell-type composition results are saved in ' + file_path + 'CellMapping/' + file_name + '.')
 
     return ct_mapping
 
@@ -171,7 +171,7 @@ def ct_mapping(t_mapping,
 def compu_cells_eachspot(number_method, st_exp,
                          cells_eachspot=0, tech=None):
     """
-    Estimation of cell numbers per spot for reconstructing single-cell spatial maps.
+    Estimation of cell numbers per spot for inferring single-cell spatial maps.
     """
 
     assert (number_method in ['allocate_dire', 'allocate_tech', 'auto_tech']), \
@@ -258,7 +258,7 @@ def compu_cells_eachspot(number_method, st_exp,
 
 def cell_mapping_xy(ct_mapping, st_xy, cellnum_spot):
     """
-    Estimation of spatial coordinates for reconstructing single-cell spatial maps.
+    Estimation of spatial coordinates for inferring single-cell spatial maps.
     """
     if not isinstance(ct_mapping, pd.DataFrame):
         print('Please enter CT_mapping data of pandas DataFrame type represents cell-type proportions.')
@@ -351,11 +351,11 @@ def cell_mapping_xy(ct_mapping, st_xy, cellnum_spot):
 def cell_mapping_expression(t_mapping, cs_xy, cellnum_spot, sc_exp,
                             sc_meta, cs_ctnum, file_path, save=False):
     """
-    Obtain the single-cell spatial gene expression profiles for reconstructing single-cell spatial maps,
+    Obtain the single-cell spatial gene expression profiles for inferring single-cell spatial maps,
     with rows being genes and columns being cells.
     :return:
-    cs_expression： gene expression profile of reconstructed cells.
-    cs_xy_new: spatial coordinates of reconstructed single-cell spatial maps
+    cs_expression： gene expression profile of estimated cells.
+    cs_xy_new: spatial coordinates of estimated single-cell spatial maps
                with rows being cells and columns being:
                 'cs_name': new cell name;
                 'cs_type': new cell type;

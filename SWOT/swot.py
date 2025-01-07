@@ -13,13 +13,13 @@ class NonConvergenceError(Exception):
 class SWOTscsm(object):
     """
         This is a SWOTscsm class of SWOT, it products an object for the spatially weighted optimal transport model
-        for cell-type deconvolution and further single-cell spatial maps reconstruction.
+        for the inference of cell-type composition and single-cell spatial maps.
         It contains two principal components: an optimal transport module for computing transport plan and
         a cell mapping module for estimating cell-type compositions, cell numbers and cell coordinates per spot.
 
         SWOT inputs a gene expression profile and cell type labels in scRNA-seq data,
         as well as a gene expression profile and spatial coordinates in ST data.
-        The output of SWOT is a cell-type composition matrix and a reconstructed single-cell spatial map.
+        The output of SWOT is a cell-type composition matrix and an inferred single-cell spatial map.
 
         See more details in our paper.
     """
@@ -120,7 +120,7 @@ class SWOTscsm(object):
                            mincut=0.1,
                            save_ctmapping=True):
         """
-        Estimation of cell-type compositions for cell-type deconvolution.
+        Estimation of cell-type compositions.
         :param t_mapping: a transport plan of cell-to-spot, with rows being cells and columns being spots.
         :param mapping_method: cell type mapping method.
         :param cluster: the column name of cell type information in sc_meta data.
@@ -129,7 +129,7 @@ class SWOTscsm(object):
         :param save_ctmapping: whether the cell-type mapping result need to save in file_path?
         :return: A cell-type proportion matrix.
         """
-        print('2. Cell mapping module for cell-type deconvolution ......')
+        print('2. Cell mapping module for inferring cell-type composition ......')
         ct_order = pd.Index(self.sc_meta.celltype.unique(), dtype=object)
         CT_proportions = cell_mapping.ct_mapping(t_mapping,
                                                  mapping_method=mapping_method,
@@ -154,16 +154,16 @@ class SWOTscsm(object):
                          tech='10XVisium',
                          save_cellmapping=False):
         """
-        Estimation of cell numbers and cell coordinates per spot for reconstructing single-cell spatial maps.
+        Estimation of cell numbers and cell coordinates per spot for inferring single-cell spatial maps.
         :param ct_mapping: a transport plan of cell-to-spot, with rows being cells and columns being spots.
         :param t_mapping: a cell-type proportion matrix, with rows being spots and columns being cell types.
         :param number_method: the method for compute or allocate the number of cells in each spot.
         :param cells_eachspot: the number of initialization.
         :param tech: the sequencing technology of ST data.
         :param save_cellmapping: whether the cell mapping result need to save in file_path?
-        :return: A reconstructed single-cell spatial map includes coordinates and expressions.
+        :return: A inferred single-cell spatial map includes coordinates and expressions.
         """
-        print('3. Cell mapping module for single-cell spatial maps reconstruction ......')
+        print('3. Cell mapping module for single-cell spatial maps inference ......')
         cellnum_spot = cell_mapping.compu_cells_eachspot(number_method=number_method,
                                                          st_exp=self.st_exp,
                                                          cells_eachspot=cells_eachspot,
