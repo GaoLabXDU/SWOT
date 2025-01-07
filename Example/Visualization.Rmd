@@ -1,6 +1,5 @@
 ---
-title: "Visualization for cell-type deconvolution and single-cell spatial maps of SWOT"
-date: "December 5th, 2024"
+title: "Visualization for cell-type composition and single-cell spatial maps of SWOT"
 output:
   rmdformats::html_clean:
     highlight: kate
@@ -18,8 +17,8 @@ knitr::opts_chunk$set(cache = TRUE,
 # SWOT
 
 ## Introduction
-SWOT is a spatially weighted optimal transport method for cell-type deconvolution and further single-cell spatial maps reconstruction for spatial transcriptomics data.   
-In this example, we will visualize the cell-type deconvolution results and the reconstructed single-cell spatial maps by SOWT in pancreatic ductal adenocarcinoma (PDAC) dataset. 
+SWOT is a spatially weighted optimal transport method that integrates single-cell RNA sequencing data with spatial transcriptomics data for the inference of cell-type composition and single-cell spatial maps.
+In this example, we will visualize the cell-type composition results and the inferred single-cell spatial maps by SOWT in pancreatic ductal adenocarcinoma (PDAC) dataset.
 
 
 ```{r warning = FALSE}
@@ -29,9 +28,9 @@ library(dplyr)
 
 ## Read data for visualization
 The results obtained from running SWOT in Python are located in folder "SWOT_files/CellMapping/", including:   
-&emsp;&emsp;"Celltype_proportions.csv": cell-type proportions matrix for cell-type deconvolution;   
-&emsp;&emsp;"Cell_maps_xy.csv": cell spatial coordinates matrix for reconstructing the single-cell spatial map;   
-&emsp;&emsp;"Cell_maps_exp.csv": single-cell gene expression matrix for reconstructed single-cell spatial map.   
+&emsp;&emsp;"Celltype_composition.csv": cell-type composition matrix;
+&emsp;&emsp;"Cell_maps_xy.csv": cell spatial coordinates matrix for inferring the single-cell spatial map;
+&emsp;&emsp;"Cell_maps_exp.csv": single-cell gene expression matrix for inferring single-cell spatial map.
 
 
 ```{r}
@@ -41,7 +40,7 @@ swot_path <- paste0(file_path, '/SWOT_files/')
 
 ST_xy <- read.csv(paste0(data_path, 'PDAC_st_xy.csv'), header = T, row.names = 1, check.names = F)
 
-SWOT_CTprop <- read.csv(paste0(swot_path, '/CellMapping/Celltype_proportions.csv'), header = T, row.names = 1, check.names = F)
+SWOT_CTprop <- read.csv(paste0(swot_path, '/CellMapping/Celltype_composition.csv'), header = T, row.names = 1, check.names = F)
 SWOT_Cellmapping <- read.csv(paste0(swot_path, '/CellMapping/Cell_maps_xy.csv'), header = T, row.names = 1, check.names = F)
 SWOT_Cellmapping_exp <- read.csv(paste0(swot_path, '/CellMapping/Cell_maps_exp.csv'), header = T, row.names = 1, check.names = F)
 
@@ -54,8 +53,8 @@ source("Visualization_functions.R")
 
 ```
 
-## Visualization of cell-type deconvolution results
-The visualization of cell-type deconvolution results includes the depiction of the spatial probability distribution of each cell type and the spatial distribution of individual cell types.
+## Visualization of cell-type composition results
+The visualization of cell-type composition results includes the depiction of the spatial probability distribution of each cell type and the spatial distribution of individual cell types.
 
 ### ScatterPie of cell-type compositions
 ```{r fig.width=10, fig.height=8}
@@ -73,8 +72,8 @@ Plot_CTProp(SWOT_CTprop, ST_xy,
 
 
 
-## Visualization of single-cell spatial maps reconstruction results
-For the reconstructed single-cell spatial map of PDAC dataset, we plotted the spatial distribution of cell types and the spatial gene expression patterns for individual cell types.
+## Visualization of single-cell spatial maps results
+For the inferred single-cell spatial map of PDAC dataset, we plotted the spatial distribution of cell types and the spatial gene expression patterns for individual cell types.
 
 ### Cell-type spatial distribution of single-cell spatial map
 ```{r fig.width=10, fig.height=8}
@@ -99,14 +98,14 @@ ggplot(SWOT_Cellmapping) +
 ### Gene expression levels of single-cell spatial maps
 ```{r fig.width=10, fig.height=8, message=FALSE}
 # Find too 100 markers for each cell type
-SC_exp <- read.csv(paste0(data_path, 'PDAC_sc_exp.csv'), header = T, row.names = 1, check.names = F)
-SC_meta <- read.csv(paste0(data_path, 'PDAC_sc_meta.csv'), header = T, row.names = 1, check.names = F)
+SC_exp <- read.csv(paste0(data_path, 'sc_exp.csv'), header = T, row.names = 1, check.names = F)
+SC_meta <- read.csv(paste0(data_path, 'sc_meta.csv'), header = T, row.names = 1, check.names = F)
 # We used "FindMarkerGenes" funtion in "Visualization_functions.R" to idenfity markers by "Seurat::FindAllMarkers" function.
-markers_top100 <- FindMarkerGenes(SC_exp, SC_meta, n_tops=100, save = FALSE)
+# markers_top100 <- FindMarkerGenes(SC_exp, SC_meta, n_tops=100, save = FALSE)
 # write.csv(markers_top100, paste0(data_path, 'markers_top100.csv'))
-# markers_top100 <- read.csv(paste0(data_path, 'markers_top100.csv'), header = T, row.names = 1, check.names = F) 
+markers_top100 <- read.csv(paste0(data_path, 'markers_top100.csv'), header = T, row.names = 1, check.names = F) 
 
-# Plot expression levels of top 100 cell-type-specific genes on the reconstructed single-cell spatial map of PDAC dataset.
+# Plot expression levels of top 100 cell-type-specific genes on the inferred single-cell spatial map of PDAC dataset.
 SWOT_Cellmapping_xy <- SWOT_Cellmapping[,c('cs_x', 'cs_y')]
 SWOT_Cellmapping_xy <- rename(SWOT_Cellmapping_xy, c('X' = 'cs_x', 'Y' = 'cs_y'))
 Plot_Topmarkergenes(SWOT_Cellmapping_exp, SWOT_Cellmapping_xy, interest_cts = c('Cancer clone A'), 

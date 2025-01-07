@@ -38,12 +38,12 @@ if __name__ == '__main__':
 
     #### 2. An optimal transport module for computing transport plan
     TransportPlan = swotclass.compute_transportplan(knn_scale_method='MinMaxScaler',
-                                                    save_dis=False,
+                                                    save_dis=True,
                                                     knn_metric_d12='correlation',
                                                     cluster='celltype', cluster_method='Louvain',
                                                     resolu_cluster=0.2, plot_umap=False, n_neighbors=20,
                                                     verbose=False, ps_bandwidth=0.1, sp_bandwidth=0.1,
-                                                    save_sw=False,
+                                                    save_sw=True,
                                                     cost2=None,
                                                     alpha=0.1, lamda=100.0, ent_reg=0.05,
                                                     initdis_method='minus',
@@ -52,14 +52,14 @@ if __name__ == '__main__':
 
     #### 3. A cell mapping module for estimating cell-type compositions, cell numbers and cell coordinates per spot
 
-    ###### 3.1 Cell-type deconvolution
+    ###### 3.1 Cell-type composition
     CT_mapping = swotclass.swot_deconvolution(t_mapping=TransportPlan,
                                               mapping_method='rawmean',
                                               cluster='celltype',
                                               minto0=0.001, mincut=0.0,
                                               save_ctmapping=True)
 
-    ###### 3.2 Single-cell spatial maps reconstruction
+    ###### 3.2 Single-cell spatial maps inference
     Cell_mapping = swotclass.swot_restruction(ct_mapping=CT_mapping,
                                               t_mapping=TransportPlan,
                                               number_method='auto_tech',
