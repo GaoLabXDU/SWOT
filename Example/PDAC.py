@@ -24,14 +24,14 @@ if __name__ == '__main__':
 
     swotclass = swot.SWOTscsm(sc_exp=SC_exp, sc_meta=SC_meta,
                               st_exp=ST_exp, st_xy=ST_xy,
-                              file_path=swot_path, use_gpu=True)
+                              file_path=swot_path, use_gpu=False)
 
     #### 2. An optimal transport module for computing transport plan
     TransportPlan = swotclass.compute_transportplan(knn_scale_method='MinMaxScaler',
                                                     save_dis=True,
                                                     knn_metric_d12='correlation',
                                                     cluster='celltype', cluster_method='Leiden',
-                                                    resolu_cluster=2.7,
+                                                    resolu_cluster=2.5,
                                                     verbose=False, ps_bandwidth=0.1, sp_bandwidth=0.1,
                                                     save_sw=True, cost2=None,
                                                     alpha=0.1, lamda=100.0, ent_reg=0.05,
