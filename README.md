@@ -15,6 +15,7 @@ This project is a python implementation of SWOT, which is introduced in the pape
 
 SWOT is a spatially weighted optimal transport method that integrates single-cell RNA sequencing data with spatial transcriptomics data for the inference of cell-type composition and single-cell spatial maps. It contains two principal components: an optimal transport module for learning a cell-to-spot mapping and a cell mapping module for estimating cell-type proportions, cell numbers, and cell coordinates per spot.
 
+
 ## Installation
 We suggest using a separate conda environment for installing SWOT. SWOT can be run in Windows Powershell or Linux Bash shell.
 
@@ -47,6 +48,7 @@ pip install -r requirements.txt
 The SWOT algorithm is used in a spot-resolution spatial transcriptomics data to infer the cell-type composition and single-cell spatial map of a given tissue. 
 SWOT inputs a gene expression matrix with cell type information of scRNA-seq data and a gene expression matrix with spatial coordinates of spatial transcriptomics data. 
 
+All the processed data required to produce figures presented in the manuscript can be found at Zenodo under the DOI: 10.5281/zenodo.16737576.
 
 ### Run Example
 An example for pancreatic ductal adenocarcinoma (PDAC) dataset can be found under the directory "Example/", and the example data are under the directory "Data_PDAC/".
